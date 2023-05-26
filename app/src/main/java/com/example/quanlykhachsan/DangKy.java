@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class DangKy extends AppCompatActivity {
 
-    EditText matkhau,matkhau2, taikhoan, quyen;
+    EditText matkhau, matkhau2, taikhoan, quyen;
     Button dangnhap, dangky;
     Provider provider;
 
@@ -20,14 +20,17 @@ public class DangKy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky);
-        matkhau = (EditText) findViewById(R.id.txtTaiKhoan);
-        matkhau2 = (EditText) findViewById(R.id.txtMatKhau2);
-        taikhoan = (EditText) findViewById(R.id.txtMatKhau);
-        quyen = (EditText)  findViewById(R.id.txtQuyen);
 
-        dangnhap  = (Button)  findViewById(R.id.btnDangNhap);
-        dangky = (Button) findViewById(R.id.btnDangKy);
-        provider = new Provider(this, "QLKS.sqlite", null, 1 );
+        matkhau = findViewById(R.id.txtMatKhau);
+        matkhau2 = findViewById(R.id.txtMatKhau2);
+        taikhoan = findViewById(R.id.txtTaiKhoan);
+        quyen = findViewById(R.id.txtQuyen);
+
+        dangnhap = findViewById(R.id.btnDangNhap);
+        dangky = findViewById(R.id.btnDangKy);
+
+        provider = new Provider(this, "QLKS.sqlite", null, 1);
+
         dangky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,21 +38,33 @@ public class DangKy extends AppCompatActivity {
                 String mk2 = matkhau2.getText().toString();
                 String tk = taikhoan.getText().toString();
                 String q = quyen.getText().toString();
-                if(TextUtils.isEmpty(mk) || TextUtils.isEmpty(mk2) || TextUtils.isEmpty(q) || TextUtils.isEmpty(tk))
-                {
+
+                if (TextUtils.isEmpty(mk) || TextUtils.isEmpty(mk2) || TextUtils.isEmpty(tk) || TextUtils.isEmpty(q)) {
                     Toast.makeText(DangKy.this, "Vui lòng nhập đầy đủ thông tin đăng ký", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (!mk.equals(mk2))
-                {
-                    Integer quyens  = Integer.parseInt(quyen.getText().toString());
-                    provider.truyvankhonglayketqua("INSERT INTO NguoiDung VALUES (null,'"+ tk + "','"+mk+"','" +quyens + "')");
-                    Toast.makeText(DangKy.this, "Đã Tọa Thành Công Tài Khoản! ", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(DangKy.this, MainActivity.class);
-                    startActivity(intent);
+
+                if (!mk.equals(mk2)) {
+                    Toast.makeText(DangKy.this, "Mật khẩu không trùng nhau", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Toast.makeText(DangKy.this, "Nhập lại mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+
+                int quyenValue = Integer.parseInt(q);
+
+                // Insert new user into the database
+                provider.truyvankhonglayketqua("INSERT INTO NguoiDung (UserName, Pass, quyen) VALUES ('" + tk + "', '" + mk + "', " + quyenValue + ")");
+                Toast.makeText(DangKy.this, "Đã tạo thành công tài khoản!", Toast.LENGTH_SHORT).show();
+
+                // Clear input fields
+                matkhau.setText("");
+                matkhau2.setText("");
+                taikhoan.setText("");
+                quyen.setText("");
+
+                // Redirect to the main activity
+                Intent intent = new Intent(DangKy.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -58,6 +73,7 @@ public class DangKy extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(DangKy.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

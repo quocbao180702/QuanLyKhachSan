@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         taikhoan = new ArrayList<>();
         taikhoan.clear();
 
-        Cursor data = provider.truyvanlaydulieu("Select * from NguoiDung");
+        Cursor data = provider.truyvanlaydulieu("select * from NguoiDung");
         while (data.moveToNext())
         {
             String username= data.getString(1);
@@ -68,14 +68,18 @@ public class MainActivity extends AppCompatActivity {
                 while (iterator.hasNext())
                 {
                     TaiKhoan tk = iterator.next();
-                    if(usern.equals(tk.getUsername()) && passw.equals(tk.getPass())) //kiểm tra coi 2 thằng tài khoản có giống nhau
+                    if(usern.equals(tk.getUsername())) //kiểm tra coi 2 thằng tài khoản có giống nhau
                     {
+                        if(passw.equals(tk.getPass()))
+                        {
                         Toast.makeText(MainActivity.this, "Xin Chào Bạn", Toast.LENGTH_SHORT).show();
-                        Intent intent= new Intent(MainActivity.this, DatPhong.class);
+                        Intent intent = new Intent(MainActivity.this, DatPhong.class);
                         startActivity(intent);
-                    }
-                    else {
-                        Toast.makeText(MainActivity.this, "đăng nhập không thành công", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(MainActivity.this, "đăng nhập không thành công", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
@@ -94,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         provider = new Provider(this, "QLKS.sqlite", null, 1 );
         provider.truyvankhonglayketqua("CREATE TABLE IF NOT EXISTS NguoiDung(id_user INTEGER PRIMARY KEY AUTOINCREMENT, UserName VARCHAR(50) ,  Pass Varchar(50), quyen INTEGER)");
         provider.truyvankhonglayketqua("INSERT INTO NguoiDung VALUES (null,'dqbao','abc123','1')");
+        provider.truyvankhonglayketqua("INSERT INTO NguoiDung VALUES (null,'khgiang','abc123','2')");
     }
 
 }
