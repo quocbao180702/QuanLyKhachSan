@@ -28,33 +28,35 @@ public class Phong_Adapter extends ArrayAdapter<Phong> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(myContext);
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View v = convertView;
+        v = inflater.inflate(R.layout.item_phong, null);
         convertView = inflater.inflate(myResource, parent, false);
         {
-            TextView IdPhong = convertView.findViewById(R.id.idPhong);
-            IdPhong.setText(getItem(position).getIdPhong());
+            TextView IdPhong = v.findViewById(R.id.idPhong);
+            IdPhong.setText(String.valueOf(arrphong.get(position).getIdPhong()));
 
-            TextView hoten = convertView.findViewById(R.id.hoten);
-            hoten.setText(getItem(position).getHoten());
+            TextView hoten = v.findViewById(R.id.hoten);
+            hoten.setText(arrphong.get(position).getHoten());
 
-            TextView ngaydat = convertView.findViewById(R.id.ngaydat);
-            ngaydat.setText(getItem(position).getNgaydat());
+            TextView ngaydat = v.findViewById(R.id.ngaydat);
+            ngaydat.setText(String.valueOf(arrphong.get(position).getNgaydat()));
 
-            TextView ngayden = convertView.findViewById(R.id.ngayden);
-            ngayden.setText(getItem(position).getNgayden());
+            TextView ngayden = v.findViewById(R.id.ngayden);
+            ngayden.setText(String.valueOf(arrphong.get(position).getNgayden()));
 
-            TextView songay = convertView.findViewById(R.id.songay);
-            songay.setText(getItem(position).getNgayden());
+            TextView songay = v.findViewById(R.id.songay);
+            songay.setText(String.valueOf(arrphong.get(position).getNgayden()));
 
-            TextView loaiphong = convertView.findViewById(R.id.loai);
-            loaiphong.setText(getItem(position).getLoaiphong());
+            TextView loaiphong = v.findViewById(R.id.loai);
+            loaiphong.setText(arrphong.get(position).getLoaiphong());
 
-            TextView dongia = convertView.findViewById(R.id.giatien);
-            dongia.setText(getItem(position).getDongia() + "");
+            TextView dongia = v.findViewById(R.id.giatien);
+            dongia.setText(String.valueOf(arrphong.get(position).getDongia()));
 
-            TextView tongtien = convertView.findViewById(R.id.tongtien);
-            tongtien.setText(getItem(position).getTongtien() + "");
+            TextView tongtien = v.findViewById(R.id.tongtien);
+            tongtien.setText(String.valueOf(arrphong.get(position).getTongtien()));
         }
-        return convertView;
+        return v;
     }
 }

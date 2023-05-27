@@ -47,18 +47,18 @@ public class OrderRoom extends AppCompatActivity {
                 String loaiphong;
                 Float giaphong;
 
-                if((nden > 30 && nden<0) || (ndat > 30 && ndat <0))
+                if((nden > 30) || (nden<0) || (ndat > 30) || (ndat <0))
                 {
                     Toast.makeText(OrderRoom.this, "Ngày nhỏ hơn 30", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(ndat < nden)
+                if(ndat > nden)
                 {
                     Toast.makeText(OrderRoom.this, "Ngày đặt phải nhỏ hơn ngày đến", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(sn<=1)
+                if(sn<1)
                 {
                     Toast.makeText(OrderRoom.this, "Ngày ở phải lớn hơn 1", Toast.LENGTH_SHORT).show();
                     return;
@@ -111,7 +111,7 @@ public class OrderRoom extends AppCompatActivity {
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        provider.truyvankhonglayketqua("INSERT INTO HoaDon (hotenkh,ngaydat,ngayden,songay,loaiphong,giaphong,tongtien) VALUES ('" + ht + "', " + ndat + ", " + nden + "," + sn + ",'" + loaiphong + "'," + giaphong + "," + tongtien + ")");
+                        provider.truyvankhonglayketqua("INSERT INTO HoaDon (hotenkh, ngaydat, ngayden, songay, loaiphong, giaphong, tongtien) VALUES ('" + ht + "', " + ndat + ", " + nden + ", " + sn + ", '" + loaiphong + "', " + giaphong + ", " + tongtien + ")");
                         Toast.makeText(OrderRoom.this, "Thêm dữ liệu thành công" + ch, Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
@@ -125,5 +125,6 @@ public class OrderRoom extends AppCompatActivity {
     {
         provider = new Provider(this, "QLKS.sqlite", null, 1 );
         provider.truyvankhonglayketqua("CREATE TABLE IF NOT EXISTS HoaDon(id_dh INTEGER PRIMARY KEY AUTOINCREMENT, hotenkh VARCHAR(50),ngaydat INTEGER,ngayden INTEGER, songay INTEGER, loaiphong VARCHAR(50),GiaPhong FLOAT, TongTien FLOAT)");
+        provider.truyvankhonglayketqua("INSERT INTO HoaDon (hotenkh, ngaydat, ngayden, songay, loaiphong, giaphong, tongtien) VALUES ('bao', 26, 27, 2, 'Phòng Đơn', 150000.0, 300000.0)");
     }
 }

@@ -1,54 +1,84 @@
 package com.example.quanlykhachsan;
 
-import android.annotation.SuppressLint;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.net.Inet4Address;
 import java.util.ArrayList;
 
 public class Phong_Activity extends AppCompatActivity {
     ListView lvDsPhong;
-    EditText txtId, txtNgayden, txtSongay;
-    Button btnSua, btnXoa;
-
     ArrayList<Phong> phongArrayList;
+    Phong_Adapter adapter;
     Provider provider;
-
+    Button xoa, sua;
+    EditText id_hd, ngayden, ngayo;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danh_sach_phong);
-        lvDsPhong = (ListView) findViewById(R.id.lvDSphong);
-        txtId = (EditText) findViewById(R.id.txtIdPhong);
-        txtNgayden = (EditText) findViewById(R.id.txtNgayDen);
-        txtSongay = (EditText) findViewById(R.id.txtsongayo);
-        btnSua = (Button) findViewById(R.id.btnSua);
-        btnXoa = (Button) findViewById(R.id.btnXoa);
-        phongArrayList =  new ArrayList<Phong>();
-        provider = new Provider(this, "QLKS.sqlite", null, 1);
-        Phong_Adapter da =  new Phong_Adapter(this,R.layout.item_phong,phongArrayList);
 
-        Cursor c = provider.truyvanlaydulieu("SELECT * FROM HOADON");
+        id_hd = findViewById(R.id.txtIdPhong);
+        ngayden = findViewById(R.id.txtNgayDen);
+        ngayo = findViewById(R.id.txtsongayo);
+        xoa = findViewById(R.id.btnSua);
+        sua = findViewById(R.id.btnXoa);
+
+        lvDsPhong = findViewById(R.id.lvDSphong); // Initialize the ListView
+        phongArrayList = new ArrayList<>();
+        provider = new Provider(this, "QLKS.sqlite", null, 1);
+        adapter = new Phong_Adapter(this, R.layout.item_phong, phongArrayList);
+        lvDsPhong.setAdapter(adapter);
+        loadPhongData();
+
+        xoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        sua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    private void loadPhongData() {
+        Cursor cursor = provider.truyvanlaydulieu("SELECT * FROM HoaDon");
         phongArrayList.clear();
-        while (c.moveToNext()){
-            String id = c.getString(0);
-            String hoten = c.getString(1);
-            Integer ngaydat = c.getInt(2);
-            Integer ngayden = c.getInt(3);
-            Integer songay = c.getInt(4);
-            String loaiphong = c.getString(5);
-            Float dongia = c.getFloat(6);
-            Float tongtien = c.getFloat(7);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int id = cursor.getInt(0);
+            String hoten = cursor.getString(1);
+            int ngaydat = cursor.getInt(2);
+            int ngayden = cursor.getInt(3);
+            int songay = cursor.getInt(4);
+            String loaiphong = cursor.getString(5);
+            float dongia = cursor.getFloat(6);
+            float tongtien = cursor.getFloat(7);
+
+            phongArrayList.add(new Phong(id, hoten, ngaydat, ngayden, songay, loaiphong, dongia, tongtien));
+            cursor.moveToNext();
         }
-        da.notifyDataSetChanged();
-        lvDsPhong.setAdapter(da);
+        cursor.close();
+
+        if (phongArrayList.isEmpty()) {
+            Toast.makeText(this, "Không có dữ liệu", Toast.LENGTH_SHORT).show();
+        }
+        adapter.notifyDataSetChanged();
     }
 }
+

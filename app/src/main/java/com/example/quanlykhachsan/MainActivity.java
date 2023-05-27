@@ -50,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String usern,passw;
-                Integer quyen;
+
                 usern = user.getText().toString();
                 passw = pass.getText().toString();
+
                 if(TextUtils.isEmpty(usern))
                 {
                     Toast.makeText(MainActivity.this,"Vui lòng nhập tài khoản",Toast.LENGTH_SHORT).show();
@@ -74,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
                         {
                         Toast.makeText(MainActivity.this, "Xin Chào Bạn", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, TrangChu.class);
+                        Bundle bundle =  new Bundle();
+                        Integer q = tk.getQuyen();
+                        intent.putExtra("quyen", q);
                         startActivity(intent);
                         }
                         else

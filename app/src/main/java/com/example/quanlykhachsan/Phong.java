@@ -2,7 +2,6 @@ package com.example.quanlykhachsan;
 
 public class Phong {
 
-
     private int IdPhong;
     private String hoten;
     private int ngayden;
