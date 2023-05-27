@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -22,19 +23,12 @@ public class Phong_Activity extends AppCompatActivity {
     ArrayList<Phong> phongArrayList;
     Phong_Adapter adapter;
     Provider provider;
-    Button xoa, sua;
-    EditText id_hd, ngayden, ngayo;
 
+    int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danh_sach_phong);
-
-        id_hd = findViewById(R.id.txtIdPhong);
-        ngayden = findViewById(R.id.txtNgayDen);
-        ngayo = findViewById(R.id.txtsongayo);
-        xoa = findViewById(R.id.btnSua);
-        sua = findViewById(R.id.btnXoa);
 
         lvDsPhong = findViewById(R.id.lvDSphong); // Initialize the ListView
         phongArrayList = new ArrayList<>();
@@ -43,17 +37,17 @@ public class Phong_Activity extends AppCompatActivity {
         lvDsPhong.setAdapter(adapter);
         loadPhongData();
 
-        xoa.setOnClickListener(new View.OnClickListener() {
+        lvDsPhong.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int itemId = phongArrayList.get(position).getIdPhong();
+                provider.truyvankhonglayketqua("DELETE FROM HoaDon WHERE id_dh = " + itemId);
+                loadPhongData();
+                return false;
             }
         });
-        sua.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
+
     }
 
     private void loadPhongData() {

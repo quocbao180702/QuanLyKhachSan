@@ -10,54 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="92dp"
         android:text="Danh sách Phòng đã đặt"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/txtIdPhong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="ID"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/txtNgayDen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Ngày đến "
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/txtsongayo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Số  ngày ở"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnSua"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Sửa" />
-
-        <Button
-            android:id="@+id/btnXoa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Xóa" />
-    </LinearLayout>
+        android:orientation="horizontal"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -71,7 +32,7 @@
             <ListView
                 android:id="@+id/lvDSphong"
                 android:layout_width="match_parent"
-                android:layout_height="500dp" />
+                android:layout_height="636dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -125,6 +125,5 @@ public class OrderRoom extends AppCompatActivity {
     {
         provider = new Provider(this, "QLKS.sqlite", null, 1 );
         provider.truyvankhonglayketqua("CREATE TABLE IF NOT EXISTS HoaDon(id_dh INTEGER PRIMARY KEY AUTOINCREMENT, hotenkh VARCHAR(50),ngaydat INTEGER,ngayden INTEGER, songay INTEGER, loaiphong VARCHAR(50),GiaPhong FLOAT, TongTien FLOAT)");
-        provider.truyvankhonglayketqua("INSERT INTO HoaDon (hotenkh, ngaydat, ngayden, songay, loaiphong, giaphong, tongtien) VALUES ('bao', 26, 27, 2, 'Phòng Đơn', 150000.0, 300000.0)");
     }
 }
