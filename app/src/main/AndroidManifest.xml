@@ -11,6 +11,8 @@
         android:theme="@style/Theme.QuanLyKhachSan"
         tools:targetApi="31" >
         <activity
+            android:name=".Phong_Activity" />
+        <activity
             android:name=".OrderRoom" />
         <activity
             android:name=".TrangChu" />

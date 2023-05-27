@@ -5,6 +5,11 @@ public class TaiKhoan {
 
     private String username;
     private String pass;
+
+    public Integer getQuyen() {
+        return quyen;
+    }
+
     private Integer quyen;
 
     public TaiKhoan() {
@@ -31,10 +36,6 @@ public class TaiKhoan {
 
     public void setPass(String pass) {
         this.pass = pass;
-    }
-
-    public Integer getQuyen() {
-        return quyen;
     }
 
     public void setQuyen(Integer quyen) {
