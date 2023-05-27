@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         if(passw.equals(tk.getPass()))
                         {
                         Toast.makeText(MainActivity.this, "Xin Chào Bạn", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, DatPhong.class);
+                        Intent intent = new Intent(MainActivity.this, TrangChu.class);
                         startActivity(intent);
                         }
                         else

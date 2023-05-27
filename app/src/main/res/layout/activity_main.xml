@@ -7,30 +7,9 @@
     tools:context=".MainActivity"
     tools:ignore="ExtraText"><![CDATA[
 
-
-
-
-
-
-
-
     "
         tools:layout_editor_absoluteX="247dp"
         tools:layout_editor_absoluteY="427dp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ]]>
 
     <TextView
