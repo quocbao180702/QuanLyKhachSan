@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     Provider provider;
     ArrayList<TaiKhoan> taikhoan;
 
+    Switch sw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         pass =(EditText) findViewById(R.id.txtMatKhau);
         dangnhap = (Button) findViewById(R.id.btnDangNhap);
         dangky = (Button) findViewById(R.id.btnDangKy);
+        sw = (Switch) findViewById(R.id.switch1);
 
         Tao_data();
 
@@ -45,6 +51,16 @@ public class MainActivity extends AppCompatActivity {
             taikhoan.add(new TaiKhoan(username,pass,quyen));
         }
 
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    pass.setInputType(InputType.TYPE_CLASS_TEXT);
+                }
+            }
+        });
 
         dangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,8 +117,6 @@ public class MainActivity extends AppCompatActivity {
     {
         provider = new Provider(this, "QLKS.sqlite", null, 1 );
         provider.truyvankhonglayketqua("CREATE TABLE IF NOT EXISTS NguoiDung(id_user INTEGER PRIMARY KEY AUTOINCREMENT, UserName VARCHAR(50) ,  Pass Varchar(50), quyen INTEGER)");
-        provider.truyvankhonglayketqua("INSERT INTO NguoiDung VALUES (null,'dqbao','abc123','1')");
-        provider.truyvankhonglayketqua("INSERT INTO NguoiDung VALUES (null,'khgiang','abc123','2')");
     }
 
 }

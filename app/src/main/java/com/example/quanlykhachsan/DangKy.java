@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class DangKy extends AppCompatActivity {
@@ -15,6 +18,7 @@ public class DangKy extends AppCompatActivity {
     EditText matkhau, matkhau2, taikhoan, quyen;
     Button dangnhap, dangky;
     Provider provider;
+    Switch sw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +30,25 @@ public class DangKy extends AppCompatActivity {
         taikhoan = findViewById(R.id.txtTaiKhoan);
         quyen = findViewById(R.id.txtQuyen);
 
+        sw = (Switch) findViewById(R.id.switch1);
+
         dangnhap = findViewById(R.id.btnDangNhap);
         dangky = findViewById(R.id.btnDangKy);
 
         provider = new Provider(this, "QLKS.sqlite", null, 1);
+
+       sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+           @Override
+           public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+               if (sw.isChecked()) {
+                   matkhau.setInputType(InputType.TYPE_CLASS_TEXT);
+                   matkhau2.setInputType(InputType.TYPE_CLASS_TEXT);
+               } else {
+                   matkhau.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                   matkhau2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+               }
+           }
+       });
 
         dangky.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -19,8 +19,6 @@
         <activity
             android:name=".DangKy" />
         <activity
-            android:name=".QuanLyHoaDon" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"> <!-- Thêm thuộc tính exported vào đây -->
             <intent-filter>
