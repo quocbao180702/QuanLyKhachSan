@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.sql.Date;
+
 public class DatPhong extends AppCompatActivity {
     EditText txtTen,txtSDT,txtDiaChi,txtNgayO, txtTongTien;
     DatePicker txtNgayDat,txtNgayDen;
@@ -18,7 +20,6 @@ public class DatPhong extends AppCompatActivity {
     Button btnDat;
     double phongdon = 150000;
     double phongdoi = 280000;
-    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
