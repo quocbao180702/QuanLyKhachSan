@@ -1,8 +1,12 @@
 package com.example.quanlykhachsan;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -42,5 +46,28 @@ public class TrangChu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_option, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case R.id.menuDangXuat:
+                Intent intent = new Intent(TrangChu.this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.menuThoat:
+                finishAffinity();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

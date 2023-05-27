@@ -24,7 +24,6 @@ public class Phong_Activity extends AppCompatActivity {
     Phong_Adapter adapter;
     Provider provider;
 
-    int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +39,33 @@ public class Phong_Activity extends AppCompatActivity {
         lvDsPhong.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                int itemId = phongArrayList.get(position).getIdPhong();
-                provider.truyvankhonglayketqua("DELETE FROM HoaDon WHERE id_dh = " + itemId);
-                loadPhongData();
+                int itemId = phongArrayList.get(i).getIdPhong();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(Phong_Activity.this);
+                alertDialog.setTitle("Question").setMessage("Bạn Có Muốn Xóa" + itemId);
+
+                // Create "No" button with OnClickListener.
+                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(Phong_Activity.this,"You choose No button",
+                                Toast.LENGTH_SHORT).show();
+                        //  Cancel
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(Phong_Activity.this,"Đã xóa hóa đơn",
+                                Toast.LENGTH_SHORT).show();
+                        //  Cancel
+                        provider.truyvankhonglayketqua("DELETE FROM HoaDon WHERE id_dh = " + itemId);
+                        loadPhongData();
+                    }
+                });
+
+                // Create AlertDialog:
+                AlertDialog alert = alertDialog.create();
+                alert.show();
                 return false;
             }
         });
